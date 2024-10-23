@@ -1,23 +1,23 @@
 {
   "banners": [
     {
-      "title": "Summer Sale",
-      "description": "Enjoy up to 50% off on all summer products!",
+      "title": "Summer Care",
+      "description": "Enjoy free consultations at all our medical centers this summer!",
       "image": "https://cdn.pixabay.com/photo/2021/10/10/08/24/doctor-6695949_1280.jpg"
     },
     {
-      "title": "New Arrivals",
-      "description": "Check out the latest trends in our collection.",
+      "title": "Latest in Medicine",
+      "description": "Check out the newest treatments and technologies available at our clinics.",
       "image": "https://cdn.pixabay.com/photo/2021/10/03/03/47/doctor-6676747_1280.jpg"
     },
     {
       "title": "Holiday Discounts",
-      "description": "Get amazing discounts on holiday gifts and more!",
+      "description": "Get amazing discounts on health packages and personalized care during the holiday season!",
       "image": "https://cdn.pixabay.com/photo/2021/10/11/17/37/doctor-6701410_1280.jpg"
     },
     {
       "title": "Exclusive Offer",
-      "description": "Sign up now and get an exclusive 10% discount.",
+      "description": "Sign up now and receive an exclusive 10% discount on all our medical services.",
       "image": "https://cdn.pixabay.com/photo/2020/05/14/02/31/covid-19-5169689_1280.jpg"
     }
   ]

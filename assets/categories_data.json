@@ -23,6 +23,26 @@
     {
       "title": "Ophthalmology",
       "icon": "https://cdn2.iconfinder.com/data/icons/eyes-icostory-black-and-white/64/glasses-health-ophthalmology-vision-256.png"
+    },
+    {
+      "title": "Gastroenterology",
+      "icon": "https://cdn3.iconfinder.com/data/icons/medical-specialties-1-2/256/Gastroenterology-256.png"
+    },
+    {
+      "title": "Neurology",
+      "icon": "https://cdn1.iconfinder.com/data/icons/zeir-miscellaneous-010/64/brain_neuroscience_brain_neurology-256.png"
+    },
+    {
+      "title": "Endocrinology",
+      "icon": "https://cdn1.iconfinder.com/data/icons/medical-profession-icostory-black-and-white/64/endocrinologist-gland-health-endocrinology-256.png"
+    },
+    {
+      "title": "Gynecology",
+      "icon": "https://cdn3.iconfinder.com/data/icons/medicine-and-healthcare-01-line/128/sexology_gynecology_heterosexual_human_sexual_relationship_gender-256.png"
+    },
+    {
+      "title": "Rheumatology",
+      "icon": "https://cdn1.iconfinder.com/data/icons/hospital-162/24/rheumatology_pictogram_hospital_regular_f-256.png"
     }
   ]
 }

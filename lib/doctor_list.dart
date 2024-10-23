@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Required to read from assets
+import 'package:flutter/services.dart';
 
 class DoctorList extends StatefulWidget {
   const DoctorList({super.key});
@@ -60,7 +60,7 @@ class DoctorListState extends State<DoctorList> {
             doctor['review_rate'],
             doctor['reviews_count'],
           );
-        }).toList(),
+        }),
       ],
     );
   }
@@ -137,7 +137,7 @@ class DoctorListState extends State<DoctorList> {
                     children: [
                       const Icon(Icons.star, color: Colors.amber, size: 16),
                       const SizedBox(width: 4.0),
-                      Text('$reviewRate (${reviewsCount} reviews)'),
+                      Text('$reviewRate ($reviewsCount reviews)'),
                     ],
                   ),
                 ],

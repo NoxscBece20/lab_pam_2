@@ -2,15 +2,15 @@
   "doctors": [
     {
       "image": "https://cdn.pixabay.com/photo/2017/01/29/21/16/nurse-2019420_1280.jpg",
-      "full_name": "Dr. Full Name 1",
+      "full_name": "Dr. Emily Carter",
       "type_of_doctor": "Cardiologist",
       "location_of_center": "Health Center 1, USA",
       "review_rate": 4.1,
-      "reviews_count": 53
+      "reviews_count": 70
     },
     {
       "image": "https://cdn.pixabay.com/photo/2017/05/23/17/12/doctor-2337835_1280.jpg",
-      "full_name": "Dr. Full Name 2",
+      "full_name": "Dr. Michael Smith",
       "type_of_doctor": "Pediatrician",
       "location_of_center": "Health Center 2, USA",
       "review_rate": 4.2,
@@ -18,7 +18,7 @@
     },
     {
       "image": "https://cdn.pixabay.com/photo/2021/02/09/06/44/doctor-5997500_960_720.jpg",
-      "full_name": "Dr. Full Name 3",
+      "full_name": "Dr. Sarah Johnson",
       "type_of_doctor": "Dermatologist",
       "location_of_center": "Health Center 3, USA",
       "review_rate": 4.3,
@@ -26,7 +26,7 @@
     },
     {
       "image": "https://cdn.pixabay.com/photo/2021/02/09/06/45/doctor-5997511_1280.jpg",
-      "full_name": "Dr. Full Name 4",
+      "full_name": "Dr. David Brown",
       "type_of_doctor": "Orthopedic Surgeon",
       "location_of_center": "Health Center 4, USA",
       "review_rate": 4.4,
@@ -34,7 +34,7 @@
     },
     {
       "image": "https://cdn.pixabay.com/photo/2017/03/14/03/20/woman-2141808_1280.jpg",
-      "full_name": "Dr. Full Name 5",
+      "full_name": "Dr. Jennifer Lee",
       "type_of_doctor": "Dentist",
       "location_of_center": "Health Center 5, USA",
       "review_rate": 4.5,
@@ -42,7 +42,7 @@
     },
     {
       "image": "https://cdn.pixabay.com/photo/2015/11/18/17/08/surgeon-1049534_1280.jpg",
-      "full_name": "Dr. Full Name 6",
+      "full_name": "Dr. Daniel Wilson",
       "type_of_doctor": "Cardiologist",
       "location_of_center": "Health Center 6, USA",
       "review_rate": 4.6,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Required to read from assets
+import 'package:flutter/services.dart';
 
 class CategoryWidget extends StatefulWidget {
   const CategoryWidget({super.key});
@@ -13,6 +13,17 @@ class CategoryWidgetState extends State<CategoryWidget> {
   bool showAll = false;
   final int initialCount = 8;
   List<Map<String, dynamic>> categories = [];
+
+  final List<Color> containerColors = [
+    const Color(0xFFdc9497),
+    const Color(0xFF93c19e),
+    const Color(0xFFf5ad7e),
+    const Color(0xFFaca1cd),
+    const Color(0xFF4d9b91),
+    const Color(0xFF5d4e81),
+    const Color(0xFFdeb6b5),
+    const Color(0xFF89ccdb),
+  ];
 
   @override
   void initState() {
@@ -68,6 +79,7 @@ class CategoryWidgetState extends State<CategoryWidget> {
                 _buildCategoryItem(
                   categories[i]['title'],
                   categories[i]['icon'],
+                  containerColors[i % containerColors.length],
                 ),
             ],
           ),
@@ -76,14 +88,14 @@ class CategoryWidgetState extends State<CategoryWidget> {
     );
   }
 
-  Widget _buildCategoryItem(String category, String iconUrl) {
+  Widget _buildCategoryItem(String category, String iconUrl, Color color) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           margin: const EdgeInsets.all(4.0),
           decoration: BoxDecoration(
-            color: Colors.grey[200], // You can choose a default color or use your containerColors list
+            color: color,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Column(
