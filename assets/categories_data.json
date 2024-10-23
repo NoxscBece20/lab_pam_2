@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "title": "Cardiology",
+      "icon": "https://cdn0.iconfinder.com/data/icons/medicine-outline-part-1-v-2/128/ic_heart-256.png"
+    },
+    {
+      "title": "Dentistry",
+      "icon": "https://cdn0.iconfinder.com/data/icons/dentistry-and-dental-care-2/512/Dentistry-13-256.png"
+    },
+    {
+      "title": "Orthopedics",
+      "icon": "https://cdn3.iconfinder.com/data/icons/bone-2/512/bone-07-256.png"
+    },
+    {
+      "title": "Dermatology",
+      "icon": "https://cdn1.iconfinder.com/data/icons/poison-4/64/irritant-hand-inflammation-dermatology-skincare_-256.png"
+    },
+    {
+      "title": "Pediatrics",
+      "icon": "https://cdn2.iconfinder.com/data/icons/human-body-anatomy-1/32/pediatrics_baby_care_baby-256.png"
+    },
+    {
+      "title": "Ophthalmology",
+      "icon": "https://cdn2.iconfinder.com/data/icons/eyes-icostory-black-and-white/64/glasses-health-ophthalmology-vision-256.png"
+    }
+  ]
+}

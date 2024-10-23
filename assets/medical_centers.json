@@ -1,0 +1,49 @@
+{
+  "nearby_centers": [
+    {
+      "image": "https://cdn.pixabay.com/photo/2017/08/18/13/06/building-2654889_960_720.jpg",
+      "title": "Medical Center 1",
+      "location_name": "Location 1",
+      "review_rate": 4.1,
+      "count_reviews": 102,
+      "distance_km": 1.1,
+      "distance_minutes": 6
+    },
+    {
+      "image": "https://cdn.pixabay.com/photo/2021/02/03/23/09/hallway-5979689_1280.jpg",
+      "title": "Medical Center 2",
+      "location_name": "Location 2",
+      "review_rate": 4.2,
+      "count_reviews": 104,
+      "distance_km": 1.1,
+      "distance_minutes": 7
+    },
+    {
+      "image": "https://cdn.pixabay.com/photo/2017/08/07/20/05/doctors-2607295_1280.jpg",
+      "title": "Medical Center 3",
+      "location_name": "Location 3",
+      "review_rate": 4.3,
+      "count_reviews": 106,
+      "distance_km": 1.1,
+      "distance_minutes": 8
+    },
+    {
+      "image": "https://cdn.pixabay.com/photo/2017/08/18/12/23/building-2654823_1280.jpg",
+      "title": "Medical Center 4",
+      "location_name": "Location 4",
+      "review_rate": 4.4,
+      "count_reviews": 108,
+      "distance_km": 1.2,
+      "distance_minutes": 9
+    },
+    {
+      "image": "https://cdn.pixabay.com/photo/2016/11/06/10/35/hospital-1802679_1280.jpg",
+      "title": "Medical Center 5",
+      "location_name": "Location 5",
+      "review_rate": 4.5,
+      "count_reviews": 110,
+      "distance_km": 1.2,
+      "distance_minutes": 10
+    }
+  ]
+}
