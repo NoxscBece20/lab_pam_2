@@ -1,4 +1,38 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+
+class MedicalCenter {
+  final String image;
+  final String title;
+  final String locationName;
+  final double reviewRate;
+  final int countReviews;
+  final double distanceKm;
+  final int distanceMinutes;
+
+  MedicalCenter({
+    required this.image,
+    required this.title,
+    required this.locationName,
+    required this.reviewRate,
+    required this.countReviews,
+    required this.distanceKm,
+    required this.distanceMinutes,
+  });
+
+  factory MedicalCenter.fromJson(Map<String, dynamic> json) {
+    return MedicalCenter(
+      image: json['image'],
+      title: json['title'],
+      locationName: json['location_name'],
+      reviewRate: json['review_rate'],
+      countReviews: json['count_reviews'],
+      distanceKm: json['distance_km'],
+      distanceMinutes: json['distance_minutes'],
+    );
+  }
+}
 
 class MedicalCenterWidget extends StatefulWidget {
   const MedicalCenterWidget({super.key});
@@ -9,49 +43,23 @@ class MedicalCenterWidget extends StatefulWidget {
 
 class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
   bool showAll = false;
+  List<MedicalCenter> medicalCenters = [];
 
-  final List<Map<String, String>> medicalCenters = [
-    {
-      'imagePath': 'assets/center1.jpg',
-      'title': 'Sunrise Health Clinic',
-      'address': '123 Main St, City, Country',
-      'rating': '4.5',
-      'distance': '5 miles',
-      'type': 'Cardiology',
-    },
-    {
-      'imagePath': 'assets/center2.jpg',
-      'title': 'Harmony Dermatology Center',
-      'address': '456 Elm St, City, Country',
-      'rating': '4.0',
-      'distance': '10 miles',
-      'type': 'Dermatology',
-    },
-    {
-      'imagePath': 'assets/center3.jpg',
-      'title': 'NeuroHealth Institute',
-      'address': '789 Oak St, City, Country',
-      'rating': '4.8',
-      'distance': '7 miles',
-      'type': 'Neurology',
-    },
-    {
-      'imagePath': 'assets/center4.jpg',
-      'title': 'Pediatric Care Center',
-      'address': '101 Pine St, City, Country',
-      'rating': '4.2',
-      'distance': '3 miles',
-      'type': 'Pediatrics',
-    },
-    {
-      'imagePath': 'assets/center5.jpg',
-      'title': 'Maple Oncology Institute',
-      'address': '202 Maple St, City, Country',
-      'rating': '5.0',
-      'distance': '2 miles',
-      'type': 'Oncology',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadMedicalCenters();
+  }
+
+  Future<void> loadMedicalCenters() async {
+    final String response = await rootBundle.loadString('assets/medical_centers.json');
+    final data = json.decode(response);
+    setState(() {
+      medicalCenters = (data['nearby_centers'] as List)
+          .map((json) => MedicalCenter.fromJson(json))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +76,6 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-
             TextButton(
               onPressed: () {
                 setState(() {
@@ -79,7 +86,6 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
             ),
           ],
         ),
-
         SizedBox(
           height: 230,
           child: ListView(
@@ -87,12 +93,12 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
             children: [
               for (var center in (showAll ? medicalCenters : medicalCenters.take(3)))
                 _buildCenterItem(
-                  center['imagePath']!,
-                  center['title']!,
-                  center['address']!,
-                  center['rating']!,
-                  center['distance']!,
-                  center['type']!,
+                  center.image,
+                  center.title,
+                  center.locationName,
+                  center.reviewRate.toString(),
+                  "${center.distanceKm} km",
+                  "${center.distanceMinutes} min",
                 ),
             ],
           ),
@@ -101,7 +107,7 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
     );
   }
 
-  Widget _buildCenterItem(String imagePath, String title, String address, String rating, String distance, String type) {
+  Widget _buildCenterItem(String imagePath, String title, String address, String rating, String distance, String time) {
     return Container(
       width: 300,
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -117,11 +123,19 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(12.0)),
-                  child: Image.asset(
+                  child: Image.network(
                     imagePath,
                     height: 100,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey,
+                        height: 100,
+                        width: double.infinity,
+                        child: const Center(child: Text('Image not available')),
+                      );
+                    },
                   ),
                 ),
                 Container(
@@ -180,7 +194,7 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.earbuds_outlined, color: Colors.black54, size: 16),
+                              const Icon(Icons.access_time_outlined, color: Colors.black54, size: 16),
                               const SizedBox(width: 4),
                               Text(
                                 distance,
@@ -193,10 +207,10 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
                           ),
                           Row(
                             children: [
-                              const Icon(Icons.home_sharp, color: Colors.black54, size: 16),
+                              const Icon(Icons.directions_walk, color: Colors.black54, size: 16),
                               const SizedBox(width: 4),
                               Text(
-                                type,
+                                time,
                                 style: const TextStyle(
                                   color: Colors.black54,
                                   fontSize: 10,
@@ -212,7 +226,6 @@ class MedicalCenterWidgetState extends State<MedicalCenterWidget> {
                 ),
               ],
             ),
-
             const Positioned(
               right: 8,
               top: 8,

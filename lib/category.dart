@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Required to read from assets
 
 class CategoryWidget extends StatefulWidget {
   const CategoryWidget({super.key});
@@ -10,35 +12,21 @@ class CategoryWidget extends StatefulWidget {
 class CategoryWidgetState extends State<CategoryWidget> {
   bool showAll = false;
   final int initialCount = 8;
+  List<Map<String, dynamic>> categories = [];
 
-  final List<Map<String, dynamic>> categories = [
-    {'name': 'Dentistry', 'icon': Icons.medical_services},
-    {'name': 'Cardiology', 'icon': Icons.favorite},
-    {'name': 'Pulmonology', 'icon': Icons.health_and_safety},
-    {'name': 'General', 'icon': Icons.medication},
+  @override
+  void initState() {
+    super.initState();
+    loadCategories();
+  }
 
-    {'name': 'Neurology', 'icon': Icons.health_and_safety},
-    {'name': 'Pediatrics', 'icon': Icons.child_care},
-    {'name': 'Orthopedics', 'icon': Icons.accessibility},
-    {'name': 'Oncology', 'icon': Icons.local_hospital},
-
-    {'name': 'Dermatology', 'icon': Icons.monitor_heart_rounded},
-    {'name': 'Psychiatry', 'icon': Icons.psychology},
-    {'name': 'Otolaryngology', 'icon': Icons.headphones},
-
-  ];
-
-
-  final List<Color> containerColors = [
-    const Color(0xFFdc9497),
-    const Color(0xFF93c19e),
-    const Color(0xFFf5ad7e),
-    const Color(0xFFaca1cd),
-    const Color(0xFF4d9b91),
-    const Color(0xFF5d4e81),
-    const Color(0xFFdeb6b5),
-    const Color(0xFF89ccdb),
-  ];
+  Future<void> loadCategories() async {
+    final String response = await rootBundle.loadString('assets/categories_data.json');
+    final data = jsonDecode(response);
+    setState(() {
+      categories = List<Map<String, dynamic>>.from(data['categories']);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +46,6 @@ class CategoryWidgetState extends State<CategoryWidget> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-
             TextButton(
               onPressed: () {
                 setState(() {
@@ -69,7 +56,6 @@ class CategoryWidgetState extends State<CategoryWidget> {
             ),
           ],
         ),
-
         SizedBox(
           height: rows * itemHeight,
           child: GridView.count(
@@ -78,11 +64,10 @@ class CategoryWidgetState extends State<CategoryWidget> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              for (var i = 0; i < visibleCount; i++)
+              for (var i = 0; i < visibleCount && i < categories.length; i++)
                 _buildCategoryItem(
-                  categories[i]['name'],
+                  categories[i]['title'],
                   categories[i]['icon'],
-                  containerColors[i % containerColors.length],
                 ),
             ],
           ),
@@ -91,14 +76,14 @@ class CategoryWidgetState extends State<CategoryWidget> {
     );
   }
 
-  Widget _buildCategoryItem(String category, IconData icon, Color containerColor) {
+  Widget _buildCategoryItem(String category, String iconUrl) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           margin: const EdgeInsets.all(4.0),
           decoration: BoxDecoration(
-            color: containerColor,
+            color: Colors.grey[200], // You can choose a default color or use your containerColors list
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Column(
@@ -106,16 +91,16 @@ class CategoryWidgetState extends State<CategoryWidget> {
             children: [
               Container(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  icon,
-                  size: 50.0,
-                  color: Colors.white,
+                child: Image.network(
+                  iconUrl,
+                  width: 50.0,
+                  height: 50.0,
+                  fit: BoxFit.cover,
                 ),
               ),
             ],
           ),
         ),
-
         Container(
           padding: const EdgeInsets.all(4.0),
           child: FittedBox(

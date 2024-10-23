@@ -1,7 +1,30 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Required to read from assets
 
-class DoctorList extends StatelessWidget {
+class DoctorList extends StatefulWidget {
   const DoctorList({super.key});
+
+  @override
+  DoctorListState createState() => DoctorListState();
+}
+
+class DoctorListState extends State<DoctorList> {
+  List<Map<String, dynamic>> doctors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadDoctors(); // Load doctors when the widget is initialized
+  }
+
+  Future<void> loadDoctors() async {
+    final String response = await rootBundle.loadString('assets/doctors_data.json');
+    final data = jsonDecode(response);
+    setState(() {
+      doctors = List<Map<String, dynamic>>.from(data['doctors']);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +35,7 @@ class DoctorList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '6 founds',
+              'Doctors Found: 6', // Update this dynamically if needed
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Row(
@@ -28,18 +51,21 @@ class DoctorList extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8.0),
-        _buildDoctorContainer('Dr. David Patel', 'Cardiologist', 'New York', 'assets/doctor1.jpg'),
-        _buildDoctorContainer('Dr. Jessica Turner', 'Gynecologist', 'Los Angeles', 'assets/doctor2.jpg'),
-        _buildDoctorContainer('Dr. Michael Johnson', 'Orthopedic Surgery', 'Chicago', 'assets/doctor3.jpg'),
-        _buildDoctorContainer('Dr. Emily Walker', 'Pediatrics', 'Houston', 'assets/doctor4.jpg'),
-        _buildDoctorContainer('Dr. Jessica Johnson', 'Cardiologist', 'New York', 'assets/doctor5.jpg'),
-        _buildDoctorContainer('Dr. John Doe', 'Pediatrics', 'Los Angeles', 'assets/doctor6.jpg'),
+        ...doctors.map((doctor) {
+          return _buildDoctorContainer(
+            doctor['full_name'],
+            doctor['type_of_doctor'],
+            doctor['location_of_center'],
+            doctor['image'],
+            doctor['review_rate'],
+            doctor['reviews_count'],
+          );
+        }).toList(),
       ],
     );
   }
 
-
-  Widget _buildDoctorContainer(String name, String specialty, String location, String imagePath) {
+  Widget _buildDoctorContainer(String name, String specialty, String location, String imagePath, double reviewRate, int reviewsCount) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       padding: const EdgeInsets.all(16.0),
@@ -56,19 +82,18 @@ class DoctorList extends StatelessWidget {
           ),
         ],
       ),
-      child: _buildDoctorItem(name, specialty, location, imagePath),
+      child: _buildDoctorItem(name, specialty, location, imagePath, reviewRate, reviewsCount),
     );
   }
 
-
-  Widget _buildDoctorItem(String name, String specialty, String location, String imagePath) {
+  Widget _buildDoctorItem(String name, String specialty, String location, String imagePath, double reviewRate, int reviewsCount) {
     return Stack(
       children: [
         Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 width: 120,
                 height: 120,
@@ -108,11 +133,11 @@ class DoctorList extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 4.0),
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.star, color: Colors.amber, size: 16),
-                      SizedBox(width: 4.0),
-                      Text('4.5'),
+                      const Icon(Icons.star, color: Colors.amber, size: 16),
+                      const SizedBox(width: 4.0),
+                      Text('$reviewRate (${reviewsCount} reviews)'),
                     ],
                   ),
                 ],
